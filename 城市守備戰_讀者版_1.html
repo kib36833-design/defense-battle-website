@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>城市守備戰｜三季故事網站</title>
+<meta name="description" content="他死了四次。第五次，他決定殺死那個謊言。《城市守備戰》三季故事網站。">
+
+<!--
+  ═══════════════════════════════════════════════════════════════
+  《城市守備戰》讀者版故事網站
+  作者：DongYuan 清風淡雲　｜　網站建置：阿勞
+  ───────────────────────────────────────────────────────────────
+  字型說明：
+    標題／金句 = LXGW WenKai TC（霞鶩文楷，開源手寫楷書）
+    英文手寫   = Caveat（近似 Hand of Huynh；若取得原字型，
+                 請將下方 --font-hand 的第一順位改為 'Hand of Huynh'）
+    內文       = Noto Serif TC（呼應 Plantin 的文學／古典感）
+  ───────────────────────────────────────────────────────────────
+  維護說明：所有內容集中在檔案下方的「內容資料區」，
+            修改文字、增減人物或章節都只需編輯那一段。
+  ═══════════════════════════════════════════════════════════════
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&family=Noto+Serif+TC:wght@200;300;400;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg-main:#1b2024;
+  --bg-deep:#14181b;
+  --bg-blown:#f4f1ec;
+  --bg-cold:#e8e6e1;
+  --bg-grey:#6d6a66;
+  --bg-people:#262b30;
+
+  --violet:#e65cd52b;
+  --violet-solid:#e65cd5;
+  --cyan:#52cfffba;
+  --cyan-solid:#52cfff;
+  --warm:#c9a86f;
+
+  --ink-light:#e4e2dd;
+  --ink-dim:#9a9791;
+  --ink-faint:#6b6862;
+  --ink-dark:#1b2024;
+  --ink-dark-dim:#575550;
+
+  --font-hand:'LXGW WenKai TC','Klee One',serif;
+  --font-body:'Noto Serif TC',serif;
+  --font-en:'Caveat',cursive;
+
+  --gut:clamp(1.5rem,5vw,6rem);
+  --measure:38rem;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  font-weight:300;
+  line-height:1.9;
+  color:var(--ink-light);
+  background:var(--bg-main);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ── 光線舞台：全站背景色隨捲動位置漸變 ───────────────── */
+#stage{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:var(--bg-blown);
+  transition:background-color 2.4s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── 捲動淡入 ──────────────────────────────────────── */
+.rise{opacity:0;transform:translateY(8px);transition:opacity 1.1s ease,transform 1.1s ease}
+.rise.seen{opacity:1;transform:none}
+
+/* ── 區塊骨架 ──────────────────────────────────────── */
+.sec{padding:clamp(6rem,14vh,11rem) var(--gut);position:relative}
+.sec-inner{max-width:76rem;margin:0 auto}
+.eyebrow{
+  font-family:var(--font-body);
+  font-size:.72rem;
+  letter-spacing:.42em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  margin:0 0 3.5rem;
+  font-weight:400;
+}
+.on-light .eyebrow{color:var(--ink-dark-dim)}
+h2{
+  font-family:var(--font-hand);
+  font-weight:400;
+  font-size:clamp(1.9rem,4.4vw,3rem);
+  letter-spacing:.16em;
+  margin:0 0 1.2rem;
+  line-height:1.4;
+}
+.lede{
+  max-width:var(--measure);
+  font-size:1rem;
+  color:var(--ink-dim);
+  margin:0 0 4rem;
+}
+.on-light{color:var(--ink-dark)}
+.on-light .lede{color:var(--ink-dark-dim)}
+
+/* ── 區塊 1：開場 ──────────────────────────────────── */
+#open{
+  min-height:100svh;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:6rem var(--gut) 4rem;
+  color:var(--ink-dark);
+  transition:color 6s ease;
+}
+#open.dimmed{color:var(--bg-blown)}
+#open .cover{
+  width:min(19rem,62vw);
+  height:auto;
+  display:block;
+  margin:0 auto 3.5rem;
+  transform:rotate(-1.4deg);
+  box-shadow:0 2rem 4rem rgba(27,32,36,.28);
+  filter:saturate(.94);
+  transition:box-shadow 6s ease;
+}
+#open.dimmed .cover{box-shadow:0 2rem 5rem rgba(0,0,0,.5)}
+#open .title{
+  font-family:var(--font-hand);
+  font-weight:400;
+  font-size:clamp(2.6rem,9vw,5.4rem);
+  letter-spacing:.3em;
+  margin:0 0 .3em;
+  line-height:1.25;
+  text-indent:.3em;
+}
+#open .hook{
+  font-size:clamp(.95rem,2.4vw,1.15rem);
+  letter-spacing:.1em;
+  max-width:32rem;
+  margin:0 auto;
+  font-weight:200;
+}
+#open .byline{
+  font-family:var(--font-en);
+  font-size:1.4rem;
+  margin-top:2.6rem;
+  opacity:.62;
+}
+.scroll-cue{
+  margin-top:4.5rem;
+  width:1px;
+  height:4.5rem;
+  background:currentColor;
+  opacity:.35;
+  justify-self:center;
+  animation:cue 3.4s ease-in-out infinite;
+  transform-origin:top;
+}
+@keyframes cue{0%,100%{transform:scaleY(.35);opacity:.18}50%{transform:scaleY(1);opacity:.5}}
+
+/* ── 區塊 2：三季導覽 ──────────────────────────────── */
+.seasons{display:grid;gap:1px;grid-template-columns:repeat(3,1fr);background:rgba(228,226,221,.14)}
+.season{
+  position:relative;
+  min-height:26rem;
+  padding:2.5rem 1.8rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  overflow:hidden;
+  background:var(--bg-deep);
+  text-decoration:none;
+  color:inherit;
+  transition:flex-grow .6s ease;
+}
+.season-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  filter:grayscale(.9) brightness(.42);
+  transform:scale(1.04);
+  transition:filter .9s ease,transform .9s ease,opacity .9s ease;
+}
+.seasons:hover .season-bg{opacity:.28}
+.season:hover .season-bg,.season:focus-visible .season-bg{
+  opacity:1;filter:grayscale(.42) brightness(.6);transform:scale(1);
+}
+.season>*{position:relative}
+.season .idx{
+  font-family:var(--font-en);
+  font-size:2.6rem;
+  color:var(--violet-solid);
+  opacity:.7;
+  line-height:1;
+  margin-bottom:auto;
+}
+.season .role{
+  font-family:var(--font-hand);
+  font-size:1.05rem;
+  letter-spacing:.6em;
+  color:var(--cyan-solid);
+  margin-bottom:.8rem;
+}
+.season h3{
+  font-family:var(--font-hand);
+  font-weight:400;
+  font-size:clamp(1.3rem,2.6vw,1.75rem);
+  letter-spacing:.14em;
+  margin:0 0 .9rem;
+}
+.season p{margin:0;font-size:.9rem;color:var(--ink-dim);line-height:1.85}
+
+/* ── 區塊 3：人物誌 ────────────────────────────────── */
+.group-label{
+  display:flex;align-items:center;gap:1.2rem;
+  margin:5rem 0 2.4rem;
+  font-family:var(--font-hand);
+  font-size:1.05rem;
+  letter-spacing:.34em;
+  color:var(--ink-dim);
+}
+.group-label::after{content:"";flex:1;height:1px;background:rgba(228,226,221,.16)}
+.group-label:first-of-type{margin-top:0}
+.people{display:grid;gap:1.6rem;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))}
+
+.card{
+  display:block;width:100%;
+  perspective:1400px;
+  background:none;border:0;padding:0;
+  font:inherit;color:inherit;
+  cursor:pointer;
+  text-align:left;
+}
+.card[data-noflip]{cursor:default}
+.card-in{
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform .8s cubic-bezier(.4,0,.2,1);
+  min-height:27rem;
+}
+.card.flipped .card-in{transform:rotateY(180deg)}
+/* 正面留在文件流內，卡片才有真實寬高；只有背面絕對疊上去。
+   這樣卡片在任何容器（網格、單欄、iframe）裡都不會塌成一條。 */
+.face{
+  backface-visibility:hidden;
+  border:1px solid rgba(228,226,221,.14);
+  padding:1.4rem;
+  display:flex;flex-direction:column;
+  background:rgba(20,24,27,.55);
+}
+.face-a{
+  position:relative;
+  width:100%;
+  min-height:27rem;
+}
+.face-b{
+  position:absolute;inset:0;
+  transform:rotateY(180deg);
+  background:var(--violet);
+  justify-content:center;
+  overflow:auto;
+}
+.card:hover .face-a,.card:focus-visible .face-a{border-color:var(--cyan)}
+.portrait{
+  width:100%;aspect-ratio:1/1;
+  object-fit:cover;object-position:center 22%;
+  filter:grayscale(1) contrast(1.06) brightness(.92);
+  transition:filter .7s ease;
+  margin-bottom:1.1rem;
+}
+.card:hover .portrait{filter:grayscale(.6) contrast(1.04) brightness(1)}
+.p-name{font-family:var(--font-hand);font-size:1.28rem;letter-spacing:.1em;margin:0}
+.p-alias{font-size:.76rem;letter-spacing:.2em;color:var(--cyan-solid);opacity:.8;margin:.35rem 0 0}
+.p-meta{font-size:.78rem;color:var(--ink-faint);margin:.5rem 0 1rem;letter-spacing:.06em}
+.p-token{font-size:.84rem;color:var(--ink-dim);margin:auto 0 0;line-height:1.8}
+.p-token b{display:block;font-weight:400;font-size:.7rem;letter-spacing:.28em;color:var(--ink-faint);margin-bottom:.45rem}
+.flip-hint{
+  font-size:.68rem;letter-spacing:.22em;color:var(--ink-faint);
+  margin-top:1rem;padding-top:.9rem;border-top:1px solid rgba(228,226,221,.1);
+}
+.face-b .b-label{font-size:.68rem;letter-spacing:.28em;color:var(--violet-solid);margin:0 0 1.4rem}
+.face-b .b-body{font-size:.9rem;color:var(--ink-light);margin:0;line-height:2}
+.face-b .b-quote{
+  font-family:var(--font-hand);font-size:1.12rem;line-height:1.85;
+  margin:1.4rem 0 0;letter-spacing:.05em;
+}
+
+/* 方文倩專屬：不可翻面，留下空白欄位 */
+.card-void .face-a{background:rgba(230,92,213,.05)}
+.blank-field{
+  margin:1.1rem 0 .9rem;
+  height:4.2rem;
+  border:1px dashed rgba(228,226,221,.26);
+}
+.card-void .p-token{margin-top:0}
+
+/* 廖仁德：單獨置中，四周留白 */
+.solo{display:block;width:100%;max-width:24rem;margin:0 auto}
+.solo .card-in{min-height:29rem}
+.solo .face-a{min-height:29rem}
+.solo .portrait{filter:grayscale(.15) contrast(1.02)}
+.solo .face-b{background:rgba(82,207,255,.07)}
+
+/* ── 區塊 4：章節導覽 ──────────────────────────────── */
+.season-tabs{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2.6rem}
+.tab{
+  background:none;border:1px solid rgba(228,226,221,.18);
+  color:var(--ink-dim);font-family:var(--font-hand);
+  font-size:.92rem;letter-spacing:.18em;
+  padding:.6rem 1.4rem;cursor:pointer;
+  transition:all .4s ease;
+}
+.tab[aria-selected="true"]{border-color:var(--cyan-solid);color:var(--ink-light);background:var(--cyan)}
+.chapters{display:grid;gap:1px;grid-template-columns:repeat(auto-fill,minmax(9rem,1fr));background:rgba(228,226,221,.12)}
+.chap{
+  position:relative;
+  aspect-ratio:1/1;
+  background:var(--bg-deep);
+  border:0;padding:1rem;
+  cursor:pointer;
+  display:grid;place-items:center;
+  color:inherit;
+  overflow:hidden;
+  transition:background .5s ease;
+}
+.chap:hover,.chap:focus-visible,.chap[aria-expanded="true"]{background:#1f252a}
+.chap .mark{width:44%;color:var(--ink-faint);transition:opacity .5s ease,color .5s ease}
+.chap .num{
+  position:absolute;bottom:.7rem;right:.9rem;
+  font-family:var(--font-en);font-size:1.15rem;color:var(--ink-faint);
+}
+.chap .reveal{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:1.1rem;
+  opacity:0;transition:opacity .5s ease;
+  background:var(--bg-deep);
+}
+.chap:hover .reveal,.chap:focus-visible .reveal,.chap[aria-expanded="true"] .reveal{opacity:1}
+.chap .c-title{font-family:var(--font-hand);font-size:1.02rem;letter-spacing:.1em;line-height:1.5}
+.chap .c-epi{font-size:.7rem;color:var(--ink-faint);margin-top:.7rem;line-height:1.7;letter-spacing:.04em}
+.chap-detail{
+  grid-column:1/-1;
+  background:#1f252a;
+  padding:2.2rem;
+  display:none;
+}
+.chap-detail.open{display:block}
+.chap-detail .d-head{font-family:var(--font-hand);font-size:1.35rem;letter-spacing:.12em;margin:0 0 .4rem}
+.chap-detail .d-epi{font-size:.8rem;color:var(--cyan-solid);opacity:.8;margin:0 0 1.4rem;letter-spacing:.08em}
+.chap-detail .d-body{max-width:var(--measure);margin:0;font-size:.96rem;color:var(--ink-light)}
+.chap-detail .d-gap{margin-top:1.4rem;font-size:.82rem;color:var(--ink-faint);font-style:italic}
+
+/* ── 區塊 5：時間軸 ────────────────────────────────── */
+.tl-wrap{display:grid;gap:3rem;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);align-items:start}
+.tl-list{list-style:none;margin:0;padding:0;border-left:1px solid rgba(228,226,221,.2)}
+.tl-list li{position:relative;padding:0 0 2.1rem 1.8rem;font-size:.92rem}
+.tl-list li::before{
+  content:"";position:absolute;left:-4px;top:.7rem;
+  width:7px;height:7px;background:var(--ink-dim);border-radius:50%;
+}
+.tl-list li b{display:block;font-family:var(--font-hand);font-weight:400;font-size:1.05rem;letter-spacing:.1em;margin-bottom:.3rem}
+.tl-list li span{color:var(--ink-dim);font-size:.86rem}
+.tl-list li.key::before{background:var(--violet-solid);box-shadow:0 0 0 5px var(--violet)}
+.tl-svg{width:100%;height:auto}
+.forks{
+  display:grid;gap:1px;grid-template-columns:1fr 1fr;
+  background:rgba(228,226,221,.16);
+  margin-top:3rem;
+}
+.fork{background:var(--bg-deep);padding:1.8rem}
+.fork h4{font-family:var(--font-hand);font-weight:400;font-size:1.05rem;letter-spacing:.14em;margin:0 0 1rem;color:var(--cyan-solid)}
+.fork p{margin:0;font-size:.9rem;color:var(--ink-light);line-height:2}
+.fork-note{
+  grid-column:1/-1;background:var(--bg-deep);
+  padding:1.2rem 1.8rem;font-size:.82rem;color:var(--ink-faint);letter-spacing:.08em;
+}
+
+/* ── 區塊 6：事件關聯 ──────────────────────────────── */
+.spoiler{border:1px solid var(--violet-solid);border-color:rgba(230,92,213,.35)}
+.spoiler>summary{
+  padding:1.3rem 1.6rem;cursor:pointer;list-style:none;
+  font-family:var(--font-hand);font-size:1rem;letter-spacing:.2em;
+  color:var(--violet-solid);
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+}
+.spoiler>summary::-webkit-details-marker{display:none}
+.spoiler>summary::after{content:"展開";font-size:.72rem;letter-spacing:.24em;color:var(--ink-faint)}
+.spoiler[open]>summary::after{content:"收合"}
+.spoiler-body{padding:0 1.6rem 2.4rem}
+.matrix{width:100%;border-collapse:collapse;font-size:.9rem}
+.matrix th{
+  font-weight:400;font-size:.7rem;letter-spacing:.24em;color:var(--ink-faint);
+  text-align:center;padding:0 .5rem 1rem;
+}
+.matrix th:first-child{text-align:left}
+.matrix td{padding:.9rem .5rem;border-top:1px solid rgba(228,226,221,.1);text-align:center;vertical-align:middle}
+.matrix td:first-child{
+  text-align:left;font-family:var(--font-hand);font-size:1.05rem;letter-spacing:.1em;
+}
+.m-row{cursor:pointer;transition:background .4s ease}
+.m-row:hover,.m-row.open{background:var(--violet)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ink-light)}
+.dot.off{background:none;border:1px solid var(--ink-faint)}
+.m-detail td{padding:0;border-top:0}
+.m-detail-in{display:none;padding:.4rem 0 2rem;gap:1.4rem;grid-template-columns:repeat(3,1fr)}
+.m-detail.open .m-detail-in{display:grid}
+.m-detail blockquote{
+  margin:0;padding-left:1rem;border-left:1px solid var(--violet-solid);
+  font-size:.86rem;color:var(--ink-dim);line-height:2;text-align:left;
+}
+.m-detail blockquote cite{display:block;font-style:normal;font-size:.68rem;letter-spacing:.2em;color:var(--ink-faint);margin-bottom:.6rem}
+.chain{list-style:none;margin:2.6rem 0 0;padding:0;max-width:var(--measure)}
+.chain li{position:relative;padding:0 0 1.6rem 2rem;font-size:.9rem;color:var(--ink-dim)}
+.chain li::before{
+  content:"↓";position:absolute;left:0;top:0;color:var(--violet-solid);opacity:.7;
+}
+.chain li:first-child::before{content:"■";font-size:.6rem;top:.5rem}
+.plants{margin:2.6rem 0 0;width:100%;border-collapse:collapse;font-size:.86rem}
+.plants th{text-align:left;font-weight:400;font-size:.68rem;letter-spacing:.22em;color:var(--ink-faint);padding-bottom:.9rem}
+.plants td{padding:.85rem 1rem .85rem 0;border-top:1px solid rgba(228,226,221,.1);color:var(--ink-dim);vertical-align:top}
+
+/* ── 區塊 7：場景 ──────────────────────────────────── */
+.scene{
+  position:relative;
+  min-height:100svh;
+  display:flex;align-items:flex-end;
+  padding:var(--gut);
+  overflow:hidden;
+}
+.scene-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  will-change:transform;
+}
+.scene::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(20,24,27,.9),rgba(20,24,27,.15) 55%);
+}
+.scene-txt{position:relative;max-width:34rem}
+.scene-txt .s-tag{font-size:.68rem;letter-spacing:.32em;color:var(--cyan-solid);margin:0 0 1rem}
+.scene-txt h3{font-family:var(--font-hand);font-weight:400;font-size:clamp(1.7rem,4.5vw,2.6rem);letter-spacing:.14em;margin:0 0 1.2rem}
+.scene-txt p{margin:0;font-size:.95rem;color:var(--ink-light);line-height:2.05}
+.scene-txt .s-sense{margin-top:1.2rem;font-size:.82rem;color:var(--ink-dim);letter-spacing:.08em}
+.sc-tower .scene-bg{filter:grayscale(.85) contrast(1.12) brightness(.68)}
+.sc-office .scene-bg{filter:saturate(1.06) contrast(1.02) brightness(.94)}
+.sc-hearing .scene-bg{filter:grayscale(.4) brightness(1.22) contrast(.86)}
+.sc-hearing::after{background:linear-gradient(to top,rgba(232,230,225,.92),rgba(232,230,225,.1) 58%)}
+.sc-hearing .scene-txt{color:var(--ink-dark)}
+.sc-hearing .scene-txt p{color:var(--ink-dark)}
+.sc-hearing .scene-txt .s-sense{color:var(--ink-dark-dim)}
+.sc-hearing .scene-txt .s-tag{color:#1a5f7a}
+.sc-square .scene-bg{filter:saturate(1.12) brightness(1.04)}
+.sc-square::after{background:linear-gradient(to top,rgba(232,230,225,.88),rgba(232,230,225,.06) 60%)}
+.sc-square .scene-txt{color:var(--ink-dark)}
+.sc-square .scene-txt p{color:var(--ink-dark)}
+.sc-square .scene-txt .s-sense{color:var(--ink-dark-dim)}
+.sc-square .scene-txt .s-tag{color:#7a5c1a}
+
+/* ── 區塊 8：金句 ──────────────────────────────────── */
+.q-group{font-family:var(--font-hand);font-size:.95rem;letter-spacing:.34em;color:var(--ink-faint);text-align:center;margin:6rem 0 0}
+.quote{
+  min-height:52svh;
+  display:grid;place-items:center;
+  text-align:center;
+  padding:3rem var(--gut);
+}
+.quote blockquote{
+  margin:0;max-width:40rem;
+  font-family:var(--font-hand);font-weight:300;
+  font-size:clamp(1.4rem,4.2vw,2.4rem);
+  line-height:1.85;letter-spacing:.1em;
+}
+.quote cite{
+  display:block;margin-top:2.2rem;
+  font-family:var(--font-body);font-style:normal;
+  font-size:.7rem;letter-spacing:.28em;color:var(--ink-faint);
+}
+.quote-final blockquote{color:var(--warm)}
+
+/* ── 區塊 9：尾聲 ──────────────────────────────────── */
+#end{color:var(--ink-dark);text-align:center}
+#end .closing{
+  font-family:var(--font-hand);font-weight:300;
+  font-size:clamp(1.25rem,3.4vw,1.9rem);
+  line-height:2.2;letter-spacing:.14em;
+  margin:0 auto 4rem;max-width:30rem;
+}
+#end .sig{font-family:var(--font-en);font-size:1.6rem;color:var(--ink-dark-dim)}
+#end .spoiler{border-color:rgba(27,32,36,.22);text-align:left;max-width:52rem;margin:4rem auto 0}
+#end .spoiler>summary{color:var(--ink-dark)}
+#end .spoiler>summary::after{color:var(--ink-dark-dim)}
+#end .afterword h4{font-family:var(--font-hand);font-weight:400;font-size:1.1rem;letter-spacing:.16em;margin:2.4rem 0 1rem;color:var(--ink-dark)}
+#end .afterword p{font-size:.94rem;color:var(--ink-dark-dim);line-height:2.05;margin:0 0 1.1rem}
+#end .afterword p em{color:var(--ink-dark);font-style:normal}
+#end .to-pitch{
+  display:inline-block;margin-top:4.5rem;
+  font-size:.74rem;letter-spacing:.28em;
+  color:var(--ink-dark-dim);text-decoration:none;
+  border-bottom:1px solid rgba(27,32,36,.28);
+  padding-bottom:.5rem;
+}
+#end .to-pitch:hover{color:var(--ink-dark);border-color:var(--ink-dark)}
+
+/* ── 右側進度指示 ──────────────────────────────────── */
+#nav{
+  position:fixed;right:1.4rem;top:50%;transform:translateY(-50%);
+  z-index:40;display:flex;flex-direction:column;gap:.9rem;
+}
+#nav a{
+  width:22px;height:10px;display:grid;place-items:center;
+  text-decoration:none;
+}
+#nav a::before{
+  content:"";width:16px;height:1px;background:currentColor;
+  opacity:.32;transition:all .4s ease;
+}
+#nav a{color:var(--ink-light)}
+#nav a.on::before{width:22px;opacity:1;background:var(--cyan-solid)}
+#nav.light a{color:var(--ink-dark)}
+#nav a:hover::before{opacity:.85}
+
+/* ── 配樂 ──────────────────────────────────────────── */
+#music{position:fixed;right:1.2rem;bottom:1.2rem;z-index:50;text-align:right}
+#music-btn{
+  font-family:var(--font-hand);font-size:.86rem;letter-spacing:.2em;
+  background:rgba(20,24,27,.82);color:var(--ink-light);
+  border:1px solid rgba(82,207,255,.4);
+  padding:.6rem 1.2rem;cursor:pointer;
+  backdrop-filter:blur(6px);
+  transition:all .4s ease;
+}
+#music-btn:hover{border-color:var(--cyan-solid)}
+#music-btn.pulse{animation:pulse 2.6s ease-in-out 3}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(82,207,255,0)}50%{box-shadow:0 0 0 6px rgba(82,207,255,.14)}}
+#music-panel{
+  display:none;margin-bottom:.7rem;
+  background:rgba(20,24,27,.9);
+  border:1px solid rgba(228,226,221,.16);
+  padding:.7rem;backdrop-filter:blur(8px);
+  width:min(23rem,84vw);
+}
+#music-panel.open{display:block}
+#music-panel iframe{width:100%;height:132px;border:0;display:block}
+#music-panel .trk{
+  font-family:var(--font-hand);font-size:.74rem;letter-spacing:.24em;
+  color:var(--cyan-solid);margin:.2rem .2rem .45rem;text-align:left;
+}
+#music-panel .trk+iframe{margin-bottom:.9rem}
+#music-panel .vol{
+  font-size:.68rem;letter-spacing:.14em;color:var(--ink-faint);
+  margin:.6rem .2rem 0;line-height:1.7;text-align:left;
+}
+
+/* ── 響應式 ────────────────────────────────────────── */
+@media (max-width:860px){
+  .seasons{grid-template-columns:1fr}
+  .season{min-height:19rem}
+  .tl-wrap{grid-template-columns:1fr}
+  .m-detail-in{grid-template-columns:1fr}
+  .forks{grid-template-columns:1fr}
+  #nav{display:none}
+  .chapters{grid-template-columns:repeat(2,1fr)}
+  .people{grid-template-columns:1fr}
+  .card-in,.face-a,.solo .face-a{min-height:25rem}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .rise{opacity:1;transform:none}
+}
+:focus-visible{outline:2px solid var(--cyan-solid);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+</style>
+</head>
+<body>
+
+<div id="stage"></div>
+
+<!-- 章節意象符號（SVG 精靈圖，供章節導覽 <use> 引用） -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <symbol id="m-ring" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1"><circle cx="20" cy="20" r="4"/><circle cx="20" cy="20" r="10" opacity=".6"/><circle cx="20" cy="20" r="16" opacity=".3"/></g></symbol>
+  <symbol id="m-fish" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1"><path d="M6 20c5-7 14-9 21-5 3 2 5 4 6 5-4 5-12 8-19 5-4-2-7-4-8-5z"/><path d="M33 20c2 2 2 5 1 7" stroke-dasharray="2 2"/><circle cx="14" cy="18" r="1" fill="currentColor" stroke="none"/></g></symbol>
+  <symbol id="m-sun" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1"><circle cx="20" cy="20" r="7"/><path d="M20 4v5M20 31v5M4 20h5M31 20h5M9 9l3 3M28 28l3 3M31 9l-3 3M12 28l-3 3"/></g></symbol>
+  <symbol id="m-cup" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1"><path d="M11 15h16v9a6 6 0 01-6 6h-4a6 6 0 01-6-6z"/><path d="M27 18h4a3 3 0 010 6h-4"/><path d="M17 10c0 2-2 2-2 4M23 9c0 2-2 2-2 4" opacity=".6"/></g></symbol>
+  <symbol id="m-beads" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1"><circle cx="20" cy="20" r="11" stroke-dasharray="1.6 3.4"/><circle cx="20" cy="9" r="2"/></g></symbol>
+  <symbol id="m-crack" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1"><path d="M6 6v28M34 6v28M18 6l3 8-4 6 5 7-3 7"/><circle cx="26" cy="24" r="1.4" fill="currentColor" stroke="none"/></g></symbol>
+  <symbol id="m-boot" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1"><path d="M13 8h8v14l9 5v5H13z"/><path d="M14 12h6M14 16h6M14 20h6" opacity=".7"/></g></symbol>
+  <symbol id="m-table" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1"><ellipse cx="20" cy="20" rx="14" ry="5"/><circle cx="20" cy="20" r="4"/><path d="M20 12v-4M20 32v-4M8 20H4M36 20h-4" opacity=".5"/></g></symbol>
+  <symbol id="m-lamp" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1"><path d="M12 8h16l-4 8H16z"/><path d="M20 16v10M14 34h12"/><path d="M20 26v8"/></g></symbol>
+  <symbol id="m-leaf" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1"><path d="M20 34C10 26 10 12 20 6c10 6 10 20 0 28z"/><path d="M20 8v24" opacity=".6"/></g></symbol>
+  <symbol id="m-env" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1"><rect x="7" y="12" width="26" height="17"/><path d="M7 12l13 9 13-9"/></g></symbol>
+  <symbol id="m-phone" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1"><rect x="13" y="6" width="14" height="28" rx="2"/><path d="M17 30h6" opacity=".7"/><path d="M17 14h6M17 18h4" opacity=".5"/></g></symbol>
+</svg>
+
+<nav id="nav" aria-label="區塊導覽">
+  <a href="#open" data-nav title="開場"></a>
+  <a href="#seasons" data-nav title="三季"></a>
+  <a href="#people" data-nav title="人物誌"></a>
+  <a href="#chapters" data-nav title="章節"></a>
+  <a href="#timeline" data-nav title="故事線"></a>
+  <a href="#echoes" data-nav title="事件關聯"></a>
+  <a href="#scenes" data-nav title="場景"></a>
+  <a href="#quotes" data-nav title="金句"></a>
+  <a href="#end" data-nav title="尾聲"></a>
+</nav>
+
+<!-- ═══ 區塊 1｜開場 ═══════════════════════════════════ -->
+<header class="sec" id="open" data-bg="#f4f1ec" data-tone="light">
+  <div>
+    <img class="cover" alt="《城市守備戰》封面" src="https://lh3.googleusercontent.com/sitesv/AG8ngQVVp0RKfZr_YRZ7DQCqVqAhWnX9TFBrr9-YcWg9nYYMsJY_A-jZPvisuetSRvLzD5RkCza4cpoPGFk9w4O3Ht97UjVkoEZG1b9sw3TExHVqhJMwZGsW86LGvI0S2QHjpK5TkIwiDHK7JdBwB_ESbpGBdmaB24oXJ6Eue0QZLecYu0PDDvfTdtz5neaIq0lDpLJJGmHgz512iPGOj1WWWsMAO-z5oop387sW9fY30-w=w1280">
+    <h1 class="title">城市守備戰</h1>
+    <p class="hook">他死了四次。第五次，他決定殺死那個謊言。</p>
+    <p class="byline">DongYuan</p>
+    <div class="scroll-cue" aria-hidden="true"></div>
+  </div>
+</header>
+
+<!-- ═══ 區塊 2｜三季導覽 ═══════════════════════════════ -->
+<section class="sec" id="seasons" data-bg="#6d6a66" data-tone="light">
+  <div class="sec-inner">
+    <p class="eyebrow rise">Three seasons</p>
+    <h2 class="rise">一條不該有人走的路</h2>
+    <p class="lede rise">三季走完三個階段。第一季是死亡，第二季是追查，第三季是見證。</p>
+    <div class="seasons rise" id="seasons-grid"></div>
+  </div>
+</section>
+
+<!-- ═══ 區塊 3｜人物誌 ═════════════════════════════════ -->
+<section class="sec" id="people" data-bg="#262b30" data-tone="dark">
+  <div class="sec-inner">
+    <p class="eyebrow rise">Who they were</p>
+    <h2 class="rise">人物誌</h2>
+    <p class="lede rise">
+      每張卡片的正面，是他活著的樣子。背面，是他最後在做的事。<br>
+      背面含劇透——點擊才會翻開。
+    </p>
+    <div id="people-out"></div>
+  </div>
+</section>
+
+<!-- ═══ 區塊 4｜章節導覽 ═══════════════════════════════ -->
+<section class="sec" id="chapters" data-bg="#1b2024" data-tone="dark">
+  <div class="sec-inner">
+    <p class="eyebrow rise">Chapters</p>
+    <h2 class="rise">章節</h2>
+    <p class="lede rise">滑鼠移入顯示章名與卷首引言，點擊展開簡介。所有簡介都經過劇透控管，讀到哪裡都不會被搶先告知結局。</p>
+    <div class="season-tabs rise" role="tablist" id="chap-tabs"></div>
+    <div class="chapters rise" id="chap-grid"></div>
+  </div>
+</section>
+
+<!-- ═══ 區塊 5｜故事線 ═════════════════════════════════ -->
+<section class="sec" id="timeline" data-bg="#1b2024" data-tone="dark">
+  <div class="sec-inner">
+    <p class="eyebrow rise">Two clocks</p>
+    <h2 class="rise">故事線</h2>
+    <p class="lede rise">
+      外部時間只走了大約二十天。內部時間走了五輪。<br>
+      左邊是城市經歷的時間，右邊是只有李志明感知得到的時間。
+    </p>
+    <div class="tl-wrap rise">
+      <ol class="tl-list" id="tl-out"></ol>
+      <div>
+        <svg class="tl-svg" viewBox="0 0 380 420" role="img" aria-labelledby="tl-t tl-d">
+          <title id="tl-t">循環結構圖</title>
+          <desc id="tl-d">五條弧線從各自的死亡點彎回同一個原點：八月十五日正午。第五條沒有彎回去，直直往前延伸。</desc>
+          <circle cx="46" cy="40" r="5" fill="#e65cd5"/>
+          <circle cx="46" cy="40" r="14" fill="none" stroke="#e65cd5" stroke-opacity=".28"/>
+          <text x="66" y="38" fill="#9a9791" font-size="11" font-family="serif">8月15日．正午</text>
+          <text x="66" y="53" fill="#6b6862" font-size="10" font-family="serif">每一次都回到這裡</text>
+          <path d="M46 40C210 40 250 90 190 118 130 146 60 120 46 40" fill="none" stroke="#e65cd5" stroke-opacity=".3" stroke-width="1"/>
+          <path d="M46 40C250 46 300 118 220 160 140 202 56 150 46 40" fill="none" stroke="#e65cd5" stroke-opacity=".38" stroke-width="1"/>
+          <path d="M46 40C286 52 340 154 240 208 140 262 52 182 46 40" fill="none" stroke="#e65cd5" stroke-opacity=".46" stroke-width="1"/>
+          <path d="M46 40C316 58 366 190 254 254 142 318 48 214 46 40" fill="none" stroke="#e65cd5" stroke-opacity=".54" stroke-width="1"/>
+          <path d="M46 40C330 66 372 250 262 306 200 338 150 340 120 352" fill="none" stroke="#52cfff" stroke-width="1.4"/>
+          <path d="M120 352L340 396" fill="none" stroke="#52cfff" stroke-width="1.4"/>
+          <circle cx="120" cy="352" r="3.5" fill="#52cfff"/>
+          <text x="14" y="122" fill="#6b6862" font-size="10" font-family="serif">第一次</text>
+          <text x="14" y="166" fill="#6b6862" font-size="10" font-family="serif">第二次</text>
+          <text x="14" y="214" fill="#6b6862" font-size="10" font-family="serif">第三次</text>
+          <text x="14" y="262" fill="#6b6862" font-size="10" font-family="serif">第四次</text>
+          <text x="126" y="345" fill="#52cfff" font-size="10" font-family="serif">手背乾淨了</text>
+          <text x="200" y="412" fill="#52cfff" font-size="10" font-family="serif">線終於往前</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="forks rise">
+      <div class="fork">
+        <h4>第二季所述</h4>
+        <p>戰役發生了。城市易手，三人從那棟樓裡走出來，其中一個是陳小華。他媽媽說她帶兩鍋紅燒肉。</p>
+      </div>
+      <div class="fork">
+        <h4>第三季所述</h4>
+        <p>那場戰役，沒有發生。所有人都活著。但仍然有人試圖讓一切消失，所以真相依然需要被說清楚。</p>
+      </div>
+      <p class="fork-note">兩種敘述並存。作者未取捨，網站亦不取捨——你相信哪一個，由你決定。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 區塊 6｜事件關聯 ═══════════════════════════════ -->
+<section class="sec" id="echoes" data-bg="#1b2024" data-tone="dark">
+  <div class="sec-inner">
+    <p class="eyebrow rise">Objects that carry the story</p>
+    <h2 class="rise">事件關聯</h2>
+    <p class="lede rise">
+      七件東西走完了三季。它們各自有一條「未完成 → 斷裂 → 被歸還」的弧線。<br>
+      這一區含全作劇透，預設收合。
+    </p>
+    <details class="spoiler rise">
+      <summary>七件物的跨季呼應．伏筆回收．謀略因果鏈</summary>
+      <div class="spoiler-body">
+        <table class="matrix">
+          <thead><tr><th>意象</th><th>第一季</th><th>第二季</th><th>第三季</th></tr></thead>
+          <tbody id="matrix-out"></tbody>
+        </table>
+
+        <h3 style="font-family:var(--font-hand);font-weight:400;letter-spacing:.16em;font-size:1.15rem;margin:4rem 0 0">謀略因果鏈</h3>
+        <ol class="chain">
+          <li>廖仁德的個人利益：境外資產、政治庇護、人身安全</li>
+          <li>需要一個「有抵抗過」的敘事，於是有了非正式協議——文件發文日，比任何人收到動員通知早了五十三天</li>
+          <li>協議條款三寫著「必要的抵抗表演」</li>
+          <li>招募晚會。詭道用在自己人身上</li>
+          <li>刻意不足的彈藥與裝備，「確保行動效益最大化」</li>
+          <li>十九小時，三十條人命</li>
+          <li>談判桌上的籌碼，與傷亡報告上的一個數字</li>
+        </ol>
+
+        <h3 style="font-family:var(--font-hand);font-weight:400;letter-spacing:.16em;font-size:1.15rem;margin:4rem 0 0">伏筆回收</h3>
+        <table class="plants">
+          <thead><tr><th style="width:44%">埋設</th><th>回收</th></tr></thead>
+          <tbody id="plants-out"></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══ 區塊 7｜場景 ═══════════════════════════════════ -->
+<div id="scenes">
+  <section class="scene sc-tower" data-bg="#14181b" data-tone="dark">
+    <div class="scene-bg" data-parallax style="background-image:url('https://lh3.googleusercontent.com/sitesv/AG8ngQV3MIxN1yeqH1kmZoBKETwxaUElp69cxowPllFV6y2L7lIDfBV9hqoD5sV2Wm6e61GDqvNQjEG4x42MZF_8QNaQwRIfaN1lGukPd6mX5KYoZVz6eaKSYjQjHhxNWVk81OOwqw-hPW4RDs4UCLbLrA8eCpDRZrdhm6hlvDV8JreZr83Rt4L0BihatIT0ldDNp5-GWeZSJznz4cXSPIlA2_fVYJtganrZDy5JXB-T=w1280')"></div>
+    <div class="scene-txt rise">
+      <p class="s-tag">場景 01</p>
+      <h3>那棟樓</h3>
+      <p>從他們踏進來的第一分鐘起，那些箱子上的數字，就已經不對了。</p>
+      <p class="s-sense">氣味先來——硝煙、水泥粉塵、燒焦的橡膠，以及某種比任何化學品都更濃烈的東西：人血的甜腥，鐵鏽一樣附著在每一次呼吸裡。</p>
+    </div>
+  </section>
+
+  <section class="scene sc-office" data-bg="#14181b" data-tone="dark">
+    <div class="scene-bg" data-parallax style="background-image:url('https://lh3.googleusercontent.com/sitesv/AG8ngQXJqHkZ8hq85-YybIY-vRO0f113LZRfEp_t5aP-ehChCYWzXgDMxEOIuLcp5Z9OUIpf00ti1llD8UzoVwMxn-z_mQYqhWvlWX4NQyWPKuhTCKBLYzFLSbXeXeTLrFfwzH3UML_ZRcuyAqpk9tODFWc2GUbdYM_A_as4hIgIHOadDWaIMg3s9F2C-zuXFU8DsJBUFv_GMax3lU2Mz9-8sdXfsLsMDZsYtTLUL1IxvN8=w1280')"></div>
+    <div class="scene-txt rise">
+      <p class="s-tag">場景 02</p>
+      <h3>三十四層的辦公室</h3>
+      <p>他在這個辦公室待了十一年，見過這個窗裡的晚霞幾千次。他從來不覺得膩，因為他覺得那是屬於他的。</p>
+      <p class="s-sense">全站每一張圖都被壓低了彩度。只有這一張沒有——這是唯一一個被妥善管理、唯一沒有髒污的地方。</p>
+    </div>
+  </section>
+
+  <section class="scene sc-hearing" data-bg="#e8e6e1" data-tone="light">
+    <div class="scene-bg" data-parallax style="background-image:url('https://lh3.googleusercontent.com/sitesv/AG8ngQVtHtv9bXDp9rmYk4vCQ3U4EdT7jo1ypGBVOrbSx-X3iimMby6jdxUgnk1wZfErQGIYkTcyKw8-nTMyUxPIHd-s2Uzw5ZELOwru62jeDFxtlcewKgD_SsmjGTm61HpwkBPPyOdmamMocTZMn1XxDbUV6ckdql8PQT2D2JuT3TAA7GMCkP17RLiKH69b8UvK3bu_OFPa5uFXEhHcEQFBAQbJIcwJmDN8mH1VW_oSH9Q=w1280')"></div>
+    <div class="scene-txt rise">
+      <p class="s-tag">場景 03</p>
+      <h3>聽證會</h3>
+      <p>那種光是白的，是冷的，是讓所有東西在那個光下都無法保有任何模糊性的光。</p>
+      <p class="s-sense">人群的氣味，體溫與皮膚，然後在那個混合的底下，是西裝毛料被熨燙過的氣味——一個人為了讓自己看起來重要而穿上的衣服的氣味。</p>
+    </div>
+  </section>
+
+  <section class="scene sc-square" data-bg="#e8e6e1" data-tone="light">
+    <div class="scene-bg" data-parallax style="background-image:url('https://lh3.googleusercontent.com/sitesv/AG8ngQVg7-dph6c2uaUSq4Nx32jSnruw_OdQC-M89I-4rQ_CL2tu8zqWIWqUyle9btGDcxOUvLFoLgLaumpScd69xW3UK9Matsl_NGmRMR_omD2SBxqcAsmhaj7zzj6gLNfVx2CC5aKrDlsgBfa2ZAs2OGacfCR4Aos21ZRVsZtk8uiDjIdsHUYefVEP_VPmXGKCE_HLdTScfZmmr3YxlY1AgHAZSLK-qnYo-ZW5KDSFPU0=w1280')"></div>
+    <div class="scene-txt rise">
+      <p class="s-tag">場景 04</p>
+      <h3>秋天的廣場</h3>
+      <p>八月已經過去了。那個把每一條街道都曬得沒有陰影、把每一個人都逼進無處可躲的光線裡的八月，過去了。</p>
+      <p class="s-sense">早晨的光開始帶著一點可以被接受的溫度，不是刺的，不是壓的，是落在肩膀上會讓人想停一下的光。</p>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ 區塊 8｜金句 ═══════════════════════════════════ -->
+<section id="quotes" data-bg="#1b2024" data-tone="dark">
+  <div class="sec" style="padding-bottom:0">
+    <div class="sec-inner">
+      <p class="eyebrow rise">Lines</p>
+      <h2 class="rise">金句</h2>
+    </div>
+  </div>
+  <div id="quotes-out"></div>
+</section>
+
+<!-- ═══ 區塊 9｜尾聲 ═══════════════════════════════════ -->
+<footer class="sec" id="end" data-bg="#e8e6e1" data-tone="light">
+  <div class="sec-inner">
+    <p class="closing rise">
+      記得那些名字。<br>
+      讓那些人，在記憶裡，繼續活著。<br>
+      然後，帶著它們，往前走。
+    </p>
+    <p class="sig rise">DongYuan 清風淡雲</p>
+
+    <details class="spoiler rise">
+      <summary>寫在故事落幕之後．作者的話</summary>
+      <div class="spoiler-body afterword">
+        <h4>這個故事是人編的，但人性是真實的</h4>
+        <p>我需要對讀者誠實說一件事：這個故事，是虛構的。李志明不存在，大壯、老劉、阿昌、小華、阿棟、蘇小蕙——這些名字，都是從想像的泥土裡塑造出來的人。</p>
+        <p>但我需要同時說的，是另一件事：<em>人性，是真實的。</em></p>
+        <p>私心，有它的邊界。當私心只是讓自己活得更好，那是人之常情。當私心開始犧牲別人，讓那些有名字的、有家人的、有夢想的人，在一份格式工整的文件上，被歸類為「在可接受的損耗範圍內」——那個邊界，就越過去了。</p>
+        <p>最危險的惡，是那種溫和的、有禮貌的、讓人感覺到親和力的惡。是那個在說出「必要的代價」的時候，語氣和說天氣一樣平靜的惡。</p>
+        <p>所以我們需要故事。不是為了讓我們憤怒，而是為了讓我們在看見那種溫和的微笑的時候，心裡有一個小小的、安靜的聲音說：<em>等一下。讓我看清楚一點。</em></p>
+
+        <h4>戰場，是生死的拔河</h4>
+        <p>戰爭，是人肉絞殺器。這不是一個比喻，不是一種修辭。戰場不在乎你是誰，不在乎你的孩子還沒有出生，不在乎你的母親還在等你回家吃飯。</p>
+        <p>這些死法，沒有一個是英雄主義的，沒有一個配得上那些招募晚會上所說的話。李志明花了四次循環，才明白一件事：不是他不夠努力——是那場戰役，從一開始就不應該發生。</p>
+
+        <h4>獻給那些無名的守護者</h4>
+        <p>這個世界上，有一些人，每一天都在做一件事：讓戰爭，不要發生。他們可能是外交官，可能是談判桌旁那個草擬文字的人，可能是醫護人員，可能是記者，也可能是一個普通的父親或母親。</p>
+        <p>他們甚至可能是你，讀完這個故事的你，在某個普通的日子裡，選擇了理解而不是對抗，選擇了對話而不是沉默——那也是一種讓戰爭不要發生的方式。</p>
+        <p>願生命，被善待。願戰火，不再起。願那些在歷史縫隙中消失的人，<em>被記得。</em></p>
+        <!-- 若要放入三季終章結語全文，可貼在此處 -->
+      </div>
+    </details>
+
+    <a class="to-pitch" href="城市守備戰_出版商簡報頁.html">出版商簡報頁 →</a>
+  </div>
+</footer>
+
+<!-- ═══ 配樂 ═══════════════════════════════════════════
+     Suno 播放器為跨網域 iframe，外部程式碼無法設定其音量，
+     瀏覽器亦封鎖無使用者操作的自動播放。
+     因此採「點擊才載入」，並提示讀者於播放器內調低音量。
+ ══════════════════════════════════════════════════════ -->
+<div id="music">
+  <div id="music-panel">
+    <div id="music-slot"></div>
+    <p class="vol">兩首各約五分鐘，接續播放約可陪伴十分鐘的閱讀。<br>音量請於播放器內調低，建議 20% 以下。</p>
+  </div>
+  <button id="music-btn" class="pulse" aria-expanded="false">♪　播放配樂</button>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   內容資料區
+   修改網站文字、增減人物或章節，只需編輯這一段。
+   ══════════════════════════════════════════════════════ */
+
+/* 配樂曲目．依序播放。若要更換，把 Suno 連結最後那段代碼貼進 id 即可 */
+const TRACKS = [
+  {id:"67fd9506-1fca-4208-93e5-fa082939d0c3", name:"最後的守望"},
+  {id:"9868f344-1499-4c24-96d3-fb4ac7fa9c7c", name:"8月15日的永劫"}
+];
+
+const IMG = {
+  李志明:"https://lh3.googleusercontent.com/sitesv/AG8ngQWQydirJrWeWRSop_2x3FO-hZ9p8oJM75kAdbldwklAoyqki92erMU4aXwArp-RBUvN1m2amSwwYzMKSKhr-Mwo4N97aJpZSRbWAu98aaL65PvcnMI_mAUZeZuxDZILFjmYQqW1jCFlTv3VYdOOjbQ18k1Empm8ZZLngL71jPadDZD3HN4kGReZYvafvRNOv8dflnZhsUD1SUGsNzzfgG9xe-tW9Y1sKOyTn8bn=w1280",
+  陳小華:"https://lh3.googleusercontent.com/sitesv/AG8ngQWhkm7B3W4dEAlwzF4ySXHJOSKNKmdQdw_92vMHFgNDu_Dn_oh8pHJycPIt-D-49djheLMvbkwdBqOT56-cEugyx6iKR7xB7GbL6HFgabLzI0WJB2K4AROpZt2-JDgVAbo61a22Rij2TFuq1kI4Lji9yXwA2NDPjLDtznbEtslk-9WLgUNjNBOcx1DbbJraQD5CXny3RG8InhfVDvy2U6YM3luK6Q7Fmo-bGw65UDM=w1280",
+  方文倩:"https://lh3.googleusercontent.com/sitesv/AG8ngQXY3PWE-S2CKip2FJJvXQXs9BcU384dYcTpBNgvSnSH5BmW88h2DnFcpp1ItF6XRVU3WJZoJXVYC1ioISHW6luEWjogOWvhAvyqjx2jSrNZG39Uao2r2FMlpLqY2tM3fTzpKiJixzj7PBpHkto4BCgHsJN5f5jvhwWVjJY6NtvxMWk8zCOsKufj828XWrisCrXhgGby7q0bAYIE4XJqHEyWa4h1d1glwPs79swaRwU=w1280",
+  小張女友:"https://lh3.googleusercontent.com/sitesv/AG8ngQWbyYXE4tUbyMj-au_wOOds-_nRc1VHMHCIztgTezCVVo0DcQI37tGh3PI6GHK-Xk7_InTZP2bnRApVAQUI6crNHGzRmiiW2SZ4FxSU9jhOAKg1UvI__xQFY07jaEYD9ovk-ZnvS4cmOIIw78XXQb9eOfmAEm9W-2b0zcTvljst9_8Thhb4fesleanMI2axsaXXc6o-P6YH0meploEQnvY8ZZRIYr-1VZvTOcB7m80=w1280",
+  阿棟:"https://lh3.googleusercontent.com/sitesv/AG8ngQVPYfVF_1Z9sg5pWPdk0SMNv6Mfxe0AREAeYSwI_PIbKYJuqZkyDFg6gBqGXv-c6-PefmpUD960j_JyaXyiyIEO88z7F4mqL8vCs2pwTOlGh7PVIBOrDKmlU0goC6uK269rfqXDwShFp947PqZbGkon_hsACOQF8r32XKuUNEvq7eei8PlILNROFXmSkCiS0cg5DuE4NXGlRhC_kEoRzXXg8b875ctO3rYPaWguU9o=w1280",
+  大壯:"https://lh3.googleusercontent.com/sitesv/AG8ngQXgDSKc2e20EMxRKyOEUzoK2DDACtzlV5kri58ksnQP6k0eWCirFk4fiF6C3PHkGwMf5ZCKjr3HrJwoTjfC1-Qj6h4kuZSrLAhYaOANWXfBMvt-v2ZoSLnopn9dvaD0a81xsSf-VM2Q5ixKwn5IUFX3LEkPJQJlWSP7sv9_FaIAzRRm-VCRe_iNN1Y9ztgsd11hNVNgxUseJqrHfpYiuaK3bw_YE9Fk3qEv5QuxXZo=w1280",
+  阿昌:"https://lh3.googleusercontent.com/sitesv/AG8ngQVEUzhJOMP_0UgbtuPaHAjC6BbUfaiG17j232Hyl9dqou8CqLh4KvEiza-GpOuNLR9aodj901-X3-v1J_pSIDr9rToIuaEKLQnUDXVS3BP4bS1aNrN58SUOJvz5YZlDDGpBOYG-kzr34oAkjkvJ8539DKLFkloa6Qd_GJZlsg0-F0WIXtt-oDXXkAFoDctfyyCo8P5HnrR73VZlK4xULuF2qjSmViLaKnkDI8cNWdQ=w1280",
+  林阿麻:"https://lh3.googleusercontent.com/sitesv/AG8ngQV9HOzBGdIAdcHEDk3Nh2XcXvDZV3oQr1CsZ_2TE3Fj_RzpicJeb15iDvKYy0U0hzCwT2eYSUTE-jEMk9ykifO1qmA2a05lstfYk-5NoARtC7v1qcI3sMyHxdPTPtWLQNTgO6p8jTlwtTuIkK5DHYpwFFT6jSdj02r_4g1oFY0lyLjOeGYtHeb4a2ikbvwzBnhFr1xD1BeDjh-s1uK8LP9yn0Tv2Bkw5hL1ViGnscI=w1280",
+  小張:"https://lh3.googleusercontent.com/sitesv/AG8ngQWmss0aZeE-I9InqV9PVv6nRymLAkW_7FlwgX5KIPII45cji1ovq6FxovxbjlDJpR1bJjAT06_1GWD1URv3UYmmlf-ZhaQtCO-22Kr7_qWtDLqn0aAfw_JY6lSXiI-vdYrupkH7gwLfh13UQSnt3dngcdPXVIJWhDZTEiVxoKv0Pou-FtEISHDRnaDVJa-GdAH3U8y9bQoT-7Hj8yAN9F_TdYw1njmyy7ogp6_ZEFw=w1280",
+  蘇小蕙:"https://lh3.googleusercontent.com/sitesv/AG8ngQVezINer3i_mFEgiS5SxKBJqRdqk69kqqk9WlMtFy2PNjbVDZxcyEZl60bbPnCbJMb10G2W-vHtJj9y-gS8E0zt4BCSn07WX0RbIXFfJbdIlZNkYrQV-tdIaQJy9KkNtirQGm_niDOxGY5DN4wjfdP1MBxOivScfYfx9P7qjX6tBoZWmDXbi0ltmM76bLkIP9cWZcxdcNQzOttuvUISSstNCU8WEgY0_2t5WayspXA=w1280",
+  阿原:"https://lh3.googleusercontent.com/sitesv/AG8ngQXIj9EOisVJIZ9fXk_Fm_WMPwPgizM8b417VppTDAdBS9c-ZatWwpPlHNrho0d-7cmaInXX63mBcIia_CajqRKJcloYyb5fOz9gbyt942tHMoc7NFGWNjvIITLORonJNa1BmImmWHp5A1hj5AYAioSwxbre3flBxEDLVzCll8HzRhKB9KFHjA2AisjiR1Y8QCq-HG0k-V8w-IvlWraT1tVjdV1Kic3v2Dh1Jtwn45Y=w1280",
+  王排長:"https://lh3.googleusercontent.com/sitesv/AG8ngQW71hIDN6HRcInMzdk4NBwgXTR-VGB4qMqSHNuCa6V-l1wlkP_fnCENGbsykRn6lvCHwLsKcqo_AtE7EIvUMWHmAyb9dHLiON3A38OyK_wV-frgVqHA8MZSDV7g-RPe2WYp95joGhzX8FP6LnXVt4iN_6oWJS5tdW1Vze-aOibbgtxMtq-27gWz-m3M11_8M26YFNJnblcsN5gAo-uYfg9Y1cWPIqNFiTnYFq7u3dg=w1280",
+  老劉:"https://lh3.googleusercontent.com/sitesv/AG8ngQXweHCxYp9Sq8wYQR5Ks5LyTIoDdivMb03KUbZyDr8awYU85t7RksCi7WsNAqR85rrQoJpG8jy7uK6cy7dKq7OKxBX_eKmu-trCjAdWnn1pARseZcmB7ZHS32fXy46nBRo_OZysfYKv6rETdWrYdPijmv1Zc6N2CChTmeX6nanQEek89RJ1rofOIGJPYpYvZaIJnbYwN3-7Sv0BPybuIpYkpEJgB3hk2hyAkSex=w1280",
+  廖仁德:"https://lh3.googleusercontent.com/sitesv/AG8ngQW9XoguLoumIjeCDYOV5uIHcGCWkjJzBNS4idpURM2xHAva6TrMxJiuVfMEFo145OIAtUOH_qhc5y9blMorTD1A2jfb93OChfxb4kl4b96xOQkOEdFZyffhpnrfqbA_fnUDKPnsaFuW1J3NI7vPa0F9cgl12jh6oEouvILnN2E76UAblW4F8X_v3imt_rDbZgi-99Q8rhTA6SZPuIDfrX1JgWghUcXe_KanGoSr=w1280",
+  趙鋒:"https://lh3.googleusercontent.com/sitesv/AG8ngQWEwgb1CGK3BcFKjDBnB9efL1MHs5bB_7IlmJiyE2IsogXuTlUep8Js-P0GTOkzy-hEm9Ln5mQTuRKHo3OGZHaOQlANwyhTIUJZXQ0N1IPwK1Q-5LOCVAjH4Z-MvRNyVubGZwSH9T-UGc6V4snqAg_6n7jrpYK9yWH_T4-zDoCJ319ZjiJA7ABHksyQRfEEqunEa_cTwwFgqf0_bVcb0ezASPCYHf3Sh2FOODXWubY=w1280",
+  何依文:"https://lh3.googleusercontent.com/sitesv/AG8ngQVIZQ7Iulo8_2SLOpirL8oaobu3qm6c2-TTcBlJhFOe8CH7v5B4n8Tld_cWyz45H8Iu112c0kH155CNMOp-yV-YWCds5niw3GlaqbXY5lx83FeFdlVbfxsKe-rb5nJ4O1TqxXvwAt8qVYIMznmDjbPr4I1XL3Mvvtzvvy4gpnolgcP_ni5nloGGInFxWXeDHy2pZQmIWPY0tKppix-x8XlvXggjg2MnYdPT9fvQ=w1280",
+  潘文德:"https://lh3.googleusercontent.com/sitesv/AG8ngQW6TugTOFFz9DjgIOykHxAnj6HWeteApSBwxi2gjR1OoL9Sh5YpnjWz4S4DYIRRYt7dWyLTif0Segf7o93EQ55lGo8EKyT6skjQnEHGHCUKCB9nzo6cEnuiujZmEAJlRdFDISCafQL0bYkhNGsVL-iuMcvlfWrCFxf2A3TRsY5nj0vZSN_7qboBXNmDPX8O30ohYbYmZUmmkzvjznkvaNKNOkZ0YyoO3MLoFvTX=w1280",
+  那棟樓:"https://lh3.googleusercontent.com/sitesv/AG8ngQV3MIxN1yeqH1kmZoBKETwxaUElp69cxowPllFV6y2L7lIDfBV9hqoD5sV2Wm6e61GDqvNQjEG4x42MZF_8QNaQwRIfaN1lGukPd6mX5KYoZVz6eaKSYjQjHhxNWVk81OOwqw-hPW4RDs4UCLbLrA8eCpDRZrdhm6hlvDV8JreZr83Rt4L0BihatIT0ldDNp5-GWeZSJznz4cXSPIlA2_fVYJtganrZDy5JXB-T=w1280",
+  廣場:"https://lh3.googleusercontent.com/sitesv/AG8ngQVg7-dph6c2uaUSq4Nx32jSnruw_OdQC-M89I-4rQ_CL2tu8zqWIWqUyle9btGDcxOUvLFoLgLaumpScd69xW3UK9Matsl_NGmRMR_omD2SBxqcAsmhaj7zzj6gLNfVx2CC5aKrDlsgBfa2ZAs2OGacfCR4Aos21ZRVsZtk8uiDjIdsHUYefVEP_VPmXGKCE_HLdTScfZmmr3YxlY1AgHAZSLK-qnYo-ZW5KDSFPU0=w1280",
+  聽證會:"https://lh3.googleusercontent.com/sitesv/AG8ngQVtHtv9bXDp9rmYk4vCQ3U4EdT7jo1ypGBVOrbSx-X3iimMby6jdxUgnk1wZfErQGIYkTcyKw8-nTMyUxPIHd-s2Uzw5ZELOwru62jeDFxtlcewKgD_SsmjGTm61HpwkBPPyOdmamMocTZMn1XxDbUV6ckdql8PQT2D2JuT3TAA7GMCkP17RLiKH69b8UvK3bu_OFPa5uFXEhHcEQFBAQbJIcwJmDN8mH1VW_oSH9Q=w1280"
+};
+
+const SEASONS = [
+  {i:"S1", role:"死亡", name:"最後的守望", desc:"他們相信了那些話，相信了世界一流的裝備，相信自己的犧牲是有意義的。然後他們走進了戰場。", bg:IMG.那棟樓},
+  {i:"S2", role:"追查", name:"8月15日的永劫", desc:"他知道接下來會發生什麼，卻無法讓任何人相信他。那是一種最深的孤獨。", bg:IMG.聽證會},
+  {i:"S3", role:"見證", name:"幻痛的八月", desc:"這一次，那場戰役沒有發生。但「沒有發生」，不代表什麼都消失了。", bg:IMG.廣場}
+];
+
+const PEOPLE = [
+  {g:"志願軍．十一人", n:"李志明", a:"唯一的循環者", m:"25 歲｜工廠生產線工人", img:IMG.李志明,
+   t:"那通沒接的媽媽電話", back:"他靠著半面牆坐下，冷從腳底往上爬。他把手伸過去，握住那張沾了血的超音波照片。", q:"「對不起。」"},
+  {g:"志願軍．十一人", n:"陳小華", a:"Chen Xiaohua", m:"19 歲｜大學工程系二年級", img:IMG.陳小華,
+   t:"手機裡存成「她」的號碼", back:"左肩被大口徑貫穿，那裡不是傷口，是一個洞。他的手指停在那兩個字上，撥不出去。", q:"「我媽還在等我回去吃飯……她做了紅燒肉。」"},
+  {g:"志願軍．十一人", n:"吳建強", a:"大壯", m:"28 歲｜貨車司機", img:IMG.大壯,
+   t:"邊角磨白的超音波照片｜孩子名「吳等父」", back:"他抬起頭，衝著李志明笑。狙擊槍沒有聲音，從來沒有聲音的。那個笑容停在弧度最高的地方，永遠停在那裡。", q:"「你看，昨天剛照的，已經可以看見小鼻子了。」"},
+  {g:"志願軍．十一人", n:"劉文雄", a:"老劉", m:"45 歲｜工地老鳥，三個孩子", img:IMG.老劉,
+   t:"「你欠我一包菸」｜大兒子考上大學那晚他哭了一整夜", back:"三樓機槍陣地遭火箭彈直擊。那句玩笑就這樣懸在空氣裡，沒有人能還給他了。", q:"「你欠我一包菸，臭小子——」"},
+  {g:"志願軍．十一人", n:"陳昌志", a:"阿昌", m:"30 歲｜貨車司機", img:IMG.阿昌,
+   t:"母親給的沉香念珠｜唸不完的大悲咒", back:"一聲消音器的輕響，比掰斷一根火柴棍還輕。誦念在句子中途驟然被剪斷，留下一個永遠不會被念完的音節。", q:"「南無大悲觀世音，願我速知一切法……」"},
+  {g:"志願軍．十一人", n:"張偉民", a:"小張", m:"21 歲｜隊裡最靈活的", img:IMG.小張,
+   t:"左胸口袋扣緊的釦子｜一張婚紗照", back:"他低頭看了三秒，把照片折起來放回口袋，用拇指確認扣子扣緊了。然後他站起來，開始移動。屍骨無存，是真的意思。", q:"（那三秒的低頭，是一個二十一歲的男孩全部的溫柔與告別。）"},
+  {g:"志願軍．十一人", n:"劉阿原", a:"阿原", m:"24 歲｜廚師", img:IMG.阿原,
+   t:"迷你調味料盒｜斷成兩截的掃把", back:"雙腿從大腿以下沒了，他用兩隻手拖著自己往前爬，因為他要迎著那隻機械犬過去。掃把斷了，斷成兩截。", q:"「幹你娘——」"},
+  {g:"志願軍．十一人", n:"林阿麻", a:"Lin A-ma", m:"22 歲｜觀測兵，夢想開水族館", img:IMG.林阿麻,
+   t:"沒畫完的龍魚｜「名字：？」", back:"流彈貫穿腹部，沒有人親眼看見他倒下。等到有人去找他，他已經抱著那本筆記本斷氣了，臉上有種奇異的平靜。", q:"「還沒想好。取早了像是說好了它一定會來。」"},
+  {g:"志願軍．十一人", n:"蘇小蕙", a:"Su Xiaohui", m:"23 歲｜護士", img:IMG.蘇小蕙,
+   t:"至死不鬆手的急救包", back:"一道流彈從斜後方貫穿她的背。她沒有叫出聲，就這樣從跪著的姿勢俯身倒下去。急救包還在右手裡，沒有鬆開。", q:"「等等我們出去，你帶我去你媽那邊吃一次紅燒肉。」"},
+  {g:"志願軍．十一人", n:"趙國棟", a:"阿棟", m:"17 歲｜高中生，謊報年齡", img:IMG.阿棟,
+   t:"綁得整整齊齊的靴帶", back:"他沒有趴下去。他站著，臉上是一個孩子第一次看見大人世界真實面目時的茫然。粉塵散去後，走廊那頭只剩一雙軍靴。", q:"（靴帶還是整齊的，因為進來之前，他認認真真地綁好了。）"},
+  {g:"志願軍．十一人", n:"王大偉", a:"王排長", m:"38 歲｜退伍老兵，菜市場攤主", img:IMG.王排長,
+   t:"五歲的女兒小糖｜沒講完的睡前故事", back:"他從接到動員令的第一天就知道這場仗打不贏，但他不知道怎麼說不。訊號斷掉之前，他問了一個沒有人能回答的問題。", q:"「這場戲……從一開始……是誰寫的本子？」"},
+
+  {g:"等待的人．二人", n:"方文倩", a:"陳小華的女友", m:"在他的手機裡，名字存成「她」", img:IMG.方文倩,
+   void:true, t:"那個號碼，他背了兩百多遍，從來沒有撥出去過。"},
+  {g:"等待的人．二人", n:"小張的未婚妻", a:"她沒有名字", m:"下個月要結婚，婚紗已經拍好了", img:IMG.小張女友,
+   t:"兩瓶飲料，一瓶是她的，一瓶是他的", back:"她站在轉角等，等到天黑，等到台子都收起來了，等到手裡那瓶替他拿著的飲料變溫。", q:"（那杯她替他拿著的飲料，最後變溫，也沒有人喝。）"},
+
+  {g:"第三方．三人", n:"趙鋒", a:"敵方前線指揮官", m:"軍事學院出身｜指揮資歷十二年", img:IMG.趙鋒,
+   t:"左胸口袋裡那份他本該銷毀的文件", back:"他在廢墟裡看見一個調味料盒，那個顏色是廚房的顏色，不屬於任何戰場的字典。他花了三次循環才理解：沒有一個軍人有義務執行一道腐的命令。", q:"「這不是軍事決策。這是會計作業。」"},
+  {g:"第三方．三人", n:"何依文", a:"《公民調查》調查記者", m:"31 歲｜獨立媒體", img:IMG.何依文,
+   t:"一支錄音筆｜一個加密資料夾", back:"她按下發布鍵。那不是一個爆炸，是一個浸潤，是水進入牆壁的方式——慢的，不聲不響的，但一旦進去了，你不能叫它出來。", q:"「從今天開始，你們說的每一句話，我都要記錄，為了讓它不可更改。」"},
+  {g:"第三方．三人", n:"潘文德", a:"單點關鍵人物", m:"42 歲｜政府通訊辦公室技術主任", img:IMG.潘文德,
+   t:"一個不在日誌裡的通訊頻道｜三個月的嚴重失眠", back:"他建了那個頻道，然後知道了它是用來做什麼的。他去看醫生，因為他睡不著，而藥治不了那個源頭。", q:"「我做了一件事。我現在不確定那件事是不是對的。」"}
+];
+
+const BOSS = {
+  n:"廖仁德", a:"市長．政客", m:"訂製西裝｜一絲不苟的背頭｜金絲眼鏡", img:IMG.廖仁德,
+  t:"一份簽了名的協議｜一盆長得很好的植栽",
+  back:"他的殘忍不是失控，是計算。「陣亡：三十名」他看了大約一秒，然後繼續往下看備注欄位。他唯一的裂縫，是三個微動作——",
+  q:"食指敲桌的節奏變快了。今天沒有碰植物的葉片。那條領帶，今天理了三次。"
+};
+
+const CHAPTERS = {
+  "第一季．最後的守望":[
+    {n:"一", t:"鋼鐵蜂鳴", mark:"m-ring", s:"頭頂有嗡嗡聲。那不是蟲。李志明第一次明白，他們不是被當成士兵，甚至不是被當成人——只是螢幕上會移動的生物特徵。"},
+    {n:"二", t:"血與火的洗禮", mark:"m-crack", s:"三個小時，感覺像過了一輩子。當一個人拿著掃把衝向鋼鐵怪物時，所有慷慨激昂的口號，都成了一個用人命寫成的笑話。"},
+    {n:"三", t:"絕望與悔恨", mark:"m-lamp", s:"樓梯間傳來冷靜、專業、不疾不徐的腳步聲。那是清掃戰場的腳步。他終於想起三個月前那場晚會上，政客額頭閃著激情的汗光。"},
+    {n:"續", t:"驚醒的惡兆", mark:"m-sun", s:"刺耳的汽車喇叭聲刺穿黑暗。街角的電子螢幕上，鮮紅的數字寫著：8月15日。他還沒簽名。一切，是否還來得及？"}
+  ],
+  "第二季．8月15日的永劫":[
+    {n:"一", t:"開場與蜂鳴", mark:"m-ring", e:"投之亡地然後存，陷之死地然後生。──孫子兵法", s:"氣味先來。一場所有人都以為是保衛家園的戰鬥，從第一分鐘起，箱子上的數字就已經不對了。"},
+    {n:"二", t:"流血下的殘影", mark:"m-fish", e:"視卒如愛子，故可與之俱死。──孫子兵法", s:"一本沒畫完的筆記本、一顆被扣緊的釦子、一句斷在中途的誦念。他開始明白：這些人死去之前，都還在做活人才會做的事。"},
+    {n:"三", t:"悔恨、絕望與循環", mark:"m-sun", e:"在戰爭中，真相是第一個傷亡者。──埃斯庫羅斯", s:"記憶回來了，他無法阻止它。十七天前的那場晚會，那通他按下拒接的電話——然後，太猛烈的光。"},
+    {n:"四", t:"第一次覺醒", mark:"m-phone", e:"知彼知己，百戰不殆。──孫子兵法", s:"他知道所有事，卻沒有人相信他。他終於發現：證明，是「語言」和「相信」之間的橋。"},
+    {n:"五", t:"螞蟻與棋子", mark:"m-cup", e:"一個人的死是悲劇，一百萬人的死是統計數字。", s:"視角切換。跟著一個永遠不在現場的人：他的咖啡永遠是正確的溫度，他的植物長得很好。"},
+    {n:"六", t:"你相信我嗎", mark:"m-crack", e:"必取於人，知敵之情者也。──孫子兵法", s:"說服一個相信證據的人，也許比說服一百個被情緒淹沒的人更有意義。而她臨終前留下了一個「之前」。"},
+    {n:"七", t:"每個人心中的那首歌", mark:"m-beads", e:"士兵比任何人都更渴望和平。──麥克阿瑟", s:"他不再把所有時間花在改變結局上。他帶著他們死去的樣子，這一次，他想帶著他們活著的樣子。"},
+    {n:"八", t:"對面也有人", mark:"m-env", e:"戰爭不過是政治透過另一種手段的延續。──克勞塞維茨", s:"戰場另一端。一個信奉「戰爭是政治的延續」的軍人，在廢墟裡看見了一個不屬於任何戰場字典的顏色。"},
+    {n:"九", t:"幕後的棋局", mark:"m-env", e:"上兵伐謀，其次伐交。──孫子兵法", s:"一份協議，三個部分。當它被用平白的語言說出來的時候，這座城市的一切都失去了意義。"},
+    {n:"十", t:"最後的籌碼", mark:"m-phone", e:"兵勝於朝廷，言勝於戰場。──六韜", s:"沒有武器，沒有籌碼，只有一通剛掛斷的電話，和一個他不知道會不會來的人。"},
+    {n:"十一", t:"螞蟻的反擊", mark:"m-crack", e:"人生自古誰無死，留取丹心照汗青。──文天祥", s:"孫子說「蟻附」是攻之災。但螞蟻不只有一種死法——牠可以不撞牆，牠可以鑽進縫隙。"},
+    {n:"十二", t:"8月15日的終局", mark:"m-sun", e:"只有死去的士兵，才能看到戰爭的終結。──柏拉圖", s:"他醒來，第一件事是看自己的手背。手背是乾淨的。"}
+  ],
+  "第三季．幻痛的八月":[
+    {n:"一", t:"陽光下的錯字與念珠", mark:"m-beads", e:"以虞待不虞者勝。──孫子兵法", s:"他站在矮牆旁，看著一個活著的十九歲在打籃球。然後他說了一句話，關於報名表上寫錯的字。"},
+    {n:"二", t:"不等價的交換", mark:"m-table", e:"視卒如嬰兒，故可與之赴深谿。──孫子兵法", s:"一句擦身而過的話，讓一雙筷子停在半空中。有些防線很厚，但它是真實的，不是空的。"},
+    {n:"三", t:"消失的魚與整齊的靴帶", mark:"m-fish", e:"故兵聞拙速，未睹巧之久也。──孫子兵法", s:"水族館貼出一張「人員調度問題」的公告。有人在他前面先動了，用合法的程序，用讓人找不到縫隙質疑的方式。", gap:true},
+    {n:"四", t:"婚紗照與斷裂的掃把", mark:"m-boot", e:"君子于役，不知其期。──詩經", s:"一個碗底扣在桌面的「鏘」，讓一個廚師單膝跪了下去。他說：我好像用掃把打過一隻鐵狗。"},
+    {n:"五", t:"血泊中的急救包", mark:"m-env", e:"知止而後有定。──禮記．大學", s:"「紅燒肉的約定還沒兌現。」——然後，一個他等了很久的人，從廢棄工廠的逆光裡走出來。"},
+    {n:"六", t:"集結的信號", mark:"m-table", e:"擅天下之利者，則失天下。──六韜", s:"「這場戲的本子，我找到了。」圍裙被解下來，放在旁邊。那是一個把身分放下、把另一個拿起來的動作。"},
+    {n:"七", t:"風暴前的餐桌", mark:"m-table", e:"勢如彍弩，節如發機。──孫子兵法", s:"八個人，一張桌子，一盤紅燒肉。沒有人說開動，沒有人動筷子。"},
+    {n:"八", t:"我知道我死過", mark:"m-lamp", e:"知可以戰與不可以戰者，勝。──孫子兵法", s:"沉默的臨界點被越過了。一個接一個，那些他們自己都說不清楚的東西，終於有了名字。"},
+    {n:"九", t:"反擊的號角", mark:"m-beads", e:"帶勇之人，第一要才堪治民。──曾胡治兵語錄", s:"一串佛珠散落一地。所有人都彎下腰。然後有人說：我們不要再散了。"},
+    {n:"十", t:"獵殺與反撲", mark:"m-sun", e:"難知如陰，動如雷震。──孫子兵法", s:"八月的日光沒有陰影，無處藏身。但他們已經不再需要陰影了。"},
+    {n:"十一", t:"聽證會上的幽靈", mark:"m-lamp", e:"多行不義，必自斃，子姑待之。──左傳", s:"一個人說這種話，是偏執。兩個人說，是巧合。十個人說出一模一樣的細節——那是證詞。"},
+    {n:"十二", t:"不被困住的明天", mark:"m-leaf", e:"天行健，君子以自強不息。──周易", s:"不是遺忘，是放行。走向那條他還沒走過的街道，走向一個沒有循環的明天。"}
+  ]
+};
+
+const TIMELINE = [
+  {t:"T−17 日．夜", d:"招募晚會。廖仁德說「你們是這個時代最勇敢的靈魂」。李志明鼓掌，掌心拍得發燙。"},
+  {t:"T−17 日．夜", d:"回家路上，媽媽打來電話。他沒有接。"},
+  {t:"T−16 日．上午十一點", d:"媽媽再次來電，說了「孩子，不要去——」他掛斷了。那句話的下半句，他永遠不知道。", key:true},
+  {t:"T−16 日", d:"簽名台。所有人的名字，寫上了那張表格。沒有一個名字知道自己被寫在什麼上面。"},
+  {t:"⋯ 十七天 ⋯", d:"日常。一場婚紗照的挑選、一條沒有名字的魚、一個還沒想好的孩子名字。"},
+  {t:"T 日", d:"開戰。十九小時。三十四人出動。", key:true},
+  {t:"T 日．第十六小時", d:"彈藥耗盡。不是損耗過大，不是補給延誤——那些箱子的數字從第一分鐘起就不對了。", key:true},
+  {t:"T+3 日", d:"傷亡報告送到三十四層的辦公桌上。他在「陣亡：三十名」停了大約一秒。"},
+  {t:"聽證日", d:"十人證詞。一個沒有人預期的敵方指揮官走進來。然後那個停頓，被幾台攝影機記錄下來了。", key:true},
+  {t:"第 21 天", d:"廖仁德以「個人因素」請辭。"},
+  {t:"第 37 天", d:"廖仁德離境。"},
+  {t:"第 51 天．早晨七點十七分", d:"吳等父出生了。照片的構圖有點歪，像是一個人用顫抖的手拍的。", key:true},
+  {t:"第 63 天", d:"季節轉涼。空氣開始有了呼吸的空間。"}
+];
+
+const MATRIX = [
+  {n:"紅燒肉", has:[1,1,1], q:[
+    ["第一季","「志明……我媽還在等我吃飯……她做的紅燒肉……」"],
+    ["第二季","她用它當清醒測試。結局的訊息是：「陳小華自己打電話給她了。她說她帶兩鍋。」"],
+    ["第三季","蘇小蕙親手做的那一盤。涼了，她端回爐上熱過，再端出來。所有人都伸出了筷子。"]]},
+  {n:"掃把", has:[1,1,1], q:[
+    ["第一季","他手中抓著的，是一把刷毛都快掉光的掃把。「鏘。」掃把斷了。"],
+    ["第二季","斷成兩截，從木柄那個裂縫的地方。機械犬甚至沒有停頓半步。"],
+    ["第三季","一個碗底扣在桌面上的「鏘」。阿原單膝跪了下去。"]]},
+  {n:"超音波照片", has:[0,1,1], q:[
+    ["第一季","（尚未出現。）"],
+    ["第二季","從他鬆開的手指縫隙滑落，在空氣裡翻了半個圈。那個孩子，後來叫做吳等父。"],
+    ["第三季","攤在那份文件旁邊。「兒啊，你還沒出生，爸爸已經差點替你沒了。」"]]},
+  {n:"念珠", has:[1,1,1], q:[
+    ["第一季","誦經聲越念越大聲，然後戛然而止。"],
+    ["第二季","媽媽給的沉香念珠。「帶著就像她在旁邊。」"],
+    ["第三季","散落一地，所有人都彎下腰。他把它們重新穿成一個完整的圓。"]]},
+  {n:"急救包", has:[0,1,1], q:[
+    ["第一季","（尚未出現。）"],
+    ["第二季","她倒下去了，右手還握著急救包，沒有鬆開，金屬扣在她的手心裡印出一個淺淺的痕跡。"],
+    ["第三季","打開放在地板上，在它本來的意義存在著。後來，她的手可以自然地垂在身側了。"]]},
+  {n:"靴帶", has:[0,1,1], q:[
+    ["第一季","（尚未出現。）"],
+    ["第二季","走廊那頭只剩下一雙軍靴，靴帶還是整齊的。"],
+    ["第三季","他綁了四次。後來，綁完就站起來，不用綁第二次。"]]},
+  {n:"那道陽光", has:[1,1,1], q:[
+    ["第一季","街角的巨型電子螢幕上，鮮紅的數字：8月15日。就是今天。"],
+    ["第二季","每一次循環都是同一道正午陽光，照得刺眼，跟每一年一樣，像什麼都沒有發生過。"],
+    ["第三季","換季後的斜光。不是刺的，不是壓的，是落在肩膀上會讓人想停一下的光。"]]}
+];
+
+const PLANTS = [
+  ["王排長：「這場戲，從一開始，是誰寫的本子」（S2 第二章）","李志明：「這場戲的本子，我找到了」（S3 第六章）"],
+  ["對講機裡不該存在的「時間」（S2 第四章）","行動代號 → 通訊節點 → 協議全貌（S2 第八、九章）"],
+  ["蘇小蕙：「在我們告訴任何人之前」（S2 第六章）","潘文德那個不在日誌裡的頻道（S2 第九章）"],
+  ["趙鋒把文件放進左胸口袋，不銷毀（S2 第八章）","死巷交付，以及廢工廠的第二次交付（S2 第十章／S3 第五章）"],
+  ["廢墟裡的調味料盒（S2 第八章）","趙鋒問名字：「劉阿原，二十四歲，師傅說他有天分」（S2 第十一章）"],
+  ["那通沒接完的媽媽電話（S2 第三章）","他終於撥出去，說「媽，我在。我很快回來」（S2 第十二章）"],
+  ["龍魚旁邊那個空著的「名字：？」（S2 第二章）","水族館的展示窗，那條龍魚的名牌寫著：阿麻（S3 第十二章）"],
+  ["「你欠我一包菸」（S1 第二章）","老劉把菸放在桌上：「欠人家的，還掉了」（S3 第十二章）"],
+  ["阿昌唸不完的大悲咒（S1 第三章）","某一個早晨，在貨車的駕駛座上，它過去了（S3 第十二章）"],
+  ["廖仁德食指敲桌的節奏（S2 第五章）","節奏變快了。領帶今天理了三次（S2 第十一章／S3 第十章）"],
+  ["「螞蟻不撞牆，牠鑽進牆的縫隙」（S2 第十一章）","文件在七個地方同時存在，十個人的證詞不可刪除（S3 第十章）"]
+];
+
+const QUOTES = [
+  {g:"關於謊言與制度"},
+  {q:"「兵者，詭道也。」——不是對敵人的詭道，是對自己人的詭道。", c:"第二季．第四章"},
+  {q:"老人宣戰。但赴死的，是年輕人。", c:"第二季．第三章　引胡佛"},
+  {q:"三十多條人命，換一個老頭的政治資本。我們是他的籌碼，不是他的士兵。", c:"李志明．第二季第九章"},
+  {q:"這不是軍事決策。這是會計作業。", c:"趙鋒．第三季第五章"},
+  {q:"他說「榮譽」，他知道的是「損耗」。", c:"第三季．第十一章"},
+  {g:"關於記憶與見證"},
+  {q:"這場戲，從一開始，是誰寫的本子？", c:"王排長．第二季第二章"},
+  {q:"我救不了所有人。但我可以讓所有人知道，他們死於什麼。", c:"李志明．第二季第九章"},
+  {q:"這些人死去之前，都還在做活人才會做的事。", c:"第二季．第二章"},
+  {q:"一個人說這種話，是偏執。十個人說出一模一樣的細節——那是證詞。", c:"趙鋒．第三季第九章"},
+  {q:"忘記，才是真正的讓他們死透。", c:"第三季．第七章"},
+  {q:"沒有名字的東西，是不存在的。", c:"林阿麻"},
+  {g:"關於那些未完成的"},
+  {q:"「孩子，不要去——」", c:"李志明的母親．那句話永遠沒有說完"},
+  {q:"等我回來再說。回來了再打，回來了再跟她說。", c:"陳小華．第二季第七章"},
+  {q:"媽的，真是一場好戲。", c:"王排長．最後一次對講機通訊"},
+  {g:"最後"},
+  {q:"你們誰也不許再死一次。", c:"李志明．第二季第三章"},
+  {q:"好。那我們去找那個寫本子的人算帳。", c:"王排長．第三季第八章"},
+  {q:"不是遺忘，是放行。", c:"第三季．第十二章", final:true}
+];
+
+/* ══════════════════════════════════════════════════════
+   渲染
+   ══════════════════════════════════════════════════════ */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* 三季導覽 */
+document.getElementById('seasons-grid').innerHTML = SEASONS.map(s => `
+  <a class="season" href="#chapters">
+    <div class="season-bg" style="background-image:url('${s.bg}')"></div>
+    <span class="idx">${s.i}</span>
+    <span class="role">${s.role}</span>
+    <h3>${esc(s.name)}</h3>
+    <p>${esc(s.desc)}</p>
+  </a>`).join('');
+
+/* 人物誌 */
+function cardHTML(p, solo){
+  const face_b = p.void ? '' : `
+    <div class="face face-b">
+      <p class="b-label">他最後在做的事</p>
+      <p class="b-body">${esc(p.back)}</p>
+      <p class="b-quote">${esc(p.q)}</p>
+    </div>`;
+  const front = p.void ? `
+      <img class="portrait" src="${p.img}" alt="${esc(p.n)}">
+      <h3 class="p-name">${esc(p.n)}</h3>
+      <p class="p-alias">${esc(p.a)}</p>
+      <p class="p-meta">${esc(p.m)}</p>
+      <div class="blank-field" aria-hidden="true"></div>
+      <p class="p-token">${esc(p.t)}</p>` : `
+      <img class="portrait" src="${p.img}" alt="${esc(p.n)}">
+      <h3 class="p-name">${esc(p.n)}</h3>
+      <p class="p-alias">${esc(p.a)}</p>
+      <p class="p-meta">${esc(p.m)}</p>
+      <p class="p-token"><b>標誌物</b>${esc(p.t)}</p>
+      <p class="flip-hint">點擊翻面．含劇透</p>`;
+  return `
+  <${p.void ? 'div' : 'button'} class="card${p.void ? ' card-void' : ''}${solo ? ' solo' : ''}"${p.void ? ' data-noflip' : ' aria-pressed="false"'}>
+    <div class="card-in">
+      <div class="face face-a">${front}</div>
+      ${face_b}
+    </div>
+  </${p.void ? 'div' : 'button'}>`;
+}
+
+const groups = [...new Set(PEOPLE.map(p => p.g))];
+document.getElementById('people-out').innerHTML =
+  groups.map(g => `
+    <p class="group-label rise">${g}</p>
+    <div class="people rise">${PEOPLE.filter(p => p.g === g).map(p => cardHTML(p)).join('')}</div>`).join('')
+  + `<p class="group-label rise">對立面．一人</p>
+     <div class="rise">${cardHTML(BOSS, true)}</div>`;
+
+document.addEventListener('click', e => {
+  const c = e.target.closest('.card');
+  if(!c || c.hasAttribute('data-noflip')) return;
+  const on = c.classList.toggle('flipped');
+  c.setAttribute('aria-pressed', on);
+});
+
+/* 章節導覽 */
+const seasonNames = Object.keys(CHAPTERS);
+let activeSeason = 1;
+document.getElementById('chap-tabs').innerHTML = seasonNames.map((n, i) =>
+  `<button class="tab" role="tab" data-s="${i}" aria-selected="${i === activeSeason}">${n}</button>`).join('');
+
+function drawChapters(){
+  const list = CHAPTERS[seasonNames[activeSeason]];
+  document.getElementById('chap-grid').innerHTML = list.map((c, i) => `
+    <button class="chap" data-c="${i}" aria-expanded="false">
+      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><use href="#${c.mark}"></use></svg>
+      <span class="num">${c.n}</span>
+      <span class="reveal">
+        <span class="c-title">${esc(c.t)}</span>
+        ${c.e ? `<span class="c-epi">${esc(c.e)}</span>` : ''}
+      </span>
+    </button>`).join('') + `<div class="chap-detail" id="chap-detail"></div>`;
+  document.querySelectorAll('.tab').forEach(t =>
+    t.setAttribute('aria-selected', +t.dataset.s === activeSeason));
+}
+drawChapters();
+
+document.getElementById('chap-tabs').addEventListener('click', e => {
+  const t = e.target.closest('.tab');
+  if(!t) return;
+  activeSeason = +t.dataset.s;
+  drawChapters();
+});
+
+document.getElementById('chap-grid').addEventListener('click', e => {
+  const b = e.target.closest('.chap');
+  if(!b) return;
+  const c = CHAPTERS[seasonNames[activeSeason]][+b.dataset.c];
+  const box = document.getElementById('chap-detail');
+  const same = b.getAttribute('aria-expanded') === 'true';
+  document.querySelectorAll('.chap').forEach(x => x.setAttribute('aria-expanded','false'));
+  if(same){ box.classList.remove('open'); return; }
+  b.setAttribute('aria-expanded','true');
+  box.innerHTML = `
+    <h3 class="d-head">第${c.n}章　${esc(c.t)}</h3>
+    ${c.e ? `<p class="d-epi">${esc(c.e)}</p>` : ''}
+    <p class="d-body">${esc(c.s)}</p>
+    ${c.gap ? `<p class="d-gap">（此處敘述留白——關於他如何回來，故事沒有說。）</p>` : ''}`;
+  box.classList.add('open');
+});
+
+/* 時間軸 */
+document.getElementById('tl-out').innerHTML = TIMELINE.map(x =>
+  `<li${x.key ? ' class="key"' : ''}><b>${esc(x.t)}</b><span>${esc(x.d)}</span></li>`).join('');
+
+/* 跨季呼應矩陣 */
+document.getElementById('matrix-out').innerHTML = MATRIX.map((m, i) => `
+  <tr class="m-row" data-m="${i}" tabindex="0" role="button" aria-expanded="false">
+    <td>${esc(m.n)}</td>
+    ${m.has.map(h => `<td><span class="dot${h ? '' : ' off'}"></span></td>`).join('')}
+  </tr>
+  <tr class="m-detail" data-d="${i}"><td colspan="4">
+    <div class="m-detail-in">
+      ${m.q.map(([s, t]) => `<blockquote><cite>${s}</cite>${esc(t)}</blockquote>`).join('')}
+    </div>
+  </td></tr>`).join('');
+
+function toggleRow(row){
+  const i = row.dataset.m;
+  const d = document.querySelector(`.m-detail[data-d="${i}"]`);
+  const on = !d.classList.contains('open');
+  document.querySelectorAll('.m-detail').forEach(x => x.classList.remove('open'));
+  document.querySelectorAll('.m-row').forEach(x => { x.classList.remove('open'); x.setAttribute('aria-expanded','false'); });
+  if(on){ d.classList.add('open'); row.classList.add('open'); row.setAttribute('aria-expanded','true'); }
+}
+document.getElementById('matrix-out').addEventListener('click', e => {
+  const r = e.target.closest('.m-row'); if(r) toggleRow(r);
+});
+document.getElementById('matrix-out').addEventListener('keydown', e => {
+  if(e.key !== 'Enter' && e.key !== ' ') return;
+  const r = e.target.closest('.m-row'); if(r){ e.preventDefault(); toggleRow(r); }
+});
+
+/* 伏筆表 */
+document.getElementById('plants-out').innerHTML = PLANTS.map(([a, b]) =>
+  `<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join('');
+
+/* 金句 */
+document.getElementById('quotes-out').innerHTML = QUOTES.map(x =>
+  x.g ? `<p class="q-group rise">${esc(x.g)}</p>`
+      : `<div class="quote${x.final ? ' quote-final' : ''} rise">
+           <blockquote>${esc(x.q)}<cite>${esc(x.c)}</cite></blockquote>
+         </div>`).join('');
+
+/* ══════════════════════════════════════════════════════
+   捲動：淡入、光線舞台、進度指示、視差
+   ══════════════════════════════════════════════════════ */
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const riseObs = new IntersectionObserver((es, o) => {
+  es.forEach(en => { if(en.isIntersecting){ en.target.classList.add('seen'); o.unobserve(en.target); } });
+}, {rootMargin:'-8% 0px -12%'});
+document.querySelectorAll('.rise').forEach(el => reduce ? el.classList.add('seen') : riseObs.observe(el));
+
+const stage = document.getElementById('stage');
+const nav = document.getElementById('nav');
+const navLinks = [...document.querySelectorAll('#nav a')];
+const zones = [...document.querySelectorAll('[data-bg]')];
+
+const stageObs = new IntersectionObserver(es => {
+  es.forEach(en => {
+    if(!en.isIntersecting) return;
+    stage.style.backgroundColor = en.target.dataset.bg;
+    nav.classList.toggle('light', en.target.dataset.tone === 'light');
+    const id = en.target.closest('[id]')?.id;
+    navLinks.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + id));
+  });
+}, {threshold:0, rootMargin:'-45% 0px -45%'});
+zones.forEach(z => stageObs.observe(z));
+
+/* 開場：過曝白停留三秒，然後緩慢下沉 */
+const open = document.getElementById('open');
+if(!reduce){
+  setTimeout(() => {
+    if(open.getBoundingClientRect().bottom > window.innerHeight * .4){
+      open.dataset.bg = '#8d8880';
+      stage.style.transitionDuration = '7s';
+      stage.style.backgroundColor = '#8d8880';
+      open.classList.add('dimmed');
+      setTimeout(() => { stage.style.transitionDuration = '2.4s'; }, 7200);
+    }
+  }, 3000);
+}
+
+/* 場景視差 */
+if(!reduce){
+  const layers = [...document.querySelectorAll('[data-parallax]')];
+  let queued = false;
+  const move = () => {
+    layers.forEach(l => {
+      const r = l.parentElement.getBoundingClientRect();
+      if(r.bottom < 0 || r.top > window.innerHeight) return;
+      const p = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight;
+      l.style.transform = `translate3d(0,${(-p * 44).toFixed(1)}px,0) scale(1.14)`;
+    });
+    queued = false;
+  };
+  addEventListener('scroll', () => { if(!queued){ queued = true; requestAnimationFrame(move); } }, {passive:true});
+  move();
+}
+
+/* 配樂 */
+const mBtn = document.getElementById('music-btn');
+const mPanel = document.getElementById('music-panel');
+const mSlot = document.getElementById('music-slot');
+setTimeout(() => mBtn.classList.remove('pulse'), 9000);
+mBtn.addEventListener('click', () => {
+  const on = !mPanel.classList.contains('open');
+  mPanel.classList.toggle('open', on);
+  mBtn.setAttribute('aria-expanded', on);
+  mBtn.textContent = on ? '×　收起播放器' : '♪　播放配樂';
+  mBtn.classList.remove('pulse');
+  if(on && !mSlot.childElementCount){
+    mSlot.innerHTML = TRACKS.map((t, i) => `
+      <p class="trk">曲 ${i + 1}　${t.name}</p>
+      <iframe src="https://suno.com/embed/${t.id}" title="配樂：${t.name}"
+        allow="autoplay; encrypted-media; fullscreen" allowfullscreen loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"><a href="https://suno.com/song/${t.id}">在 Suno 收聽</a></iframe>`).join('');
+  }
+});
+</script>
+</body>
+</html>
